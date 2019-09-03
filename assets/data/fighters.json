@@ -1,0 +1,30 @@
+[
+    {
+        "name" : "Muppet Punk",
+        "portrait" : "",
+        "hp" : 20,
+        "ap" : 2,
+        "cap" : 3
+    },
+    {
+        "name" : "Scroungely",
+        "portrait" : "",
+        "hp" : 30,
+        "ap" : 3,
+        "cap" : 1
+    },
+    {
+        "name" : "Bruce Lee",
+        "portrait" : "",
+        "hp" : 20,
+        "ap" : 5,
+        "cap" : 10
+    },
+    {
+        "name" : "Shaman",
+        "portrait" : "",
+        "hp" : 30,
+        "ap" : 1,
+        "cap" : 8
+    }
+]
