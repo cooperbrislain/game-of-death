@@ -34,7 +34,6 @@
         "name" : "Ji",
         "style" : "Hapkido",
         "portrait" : "ji.jpg",
-        "status" : "dead",
         "hp" : 20,
         "ap" : 3,
         "cap" : 3

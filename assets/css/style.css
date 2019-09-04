@@ -84,6 +84,45 @@ h1 {
     width: 100%;
     background-color: red;
     color: yellow;
-    font-weight: 900;
-    font-size: 25px;
+    font-size: 48px;
+    font-family: "Ceviche One";
+}
+
+.btn-next {
+    position: absolute;
+    bottom: 50px;
+    left: 0px;
+    width: 100%;
+    background-color: green;
+    color: white;
+    font-size: 48px;
+    font-family: "Ceviche One";
+}
+
+.win {
+
+}
+
+.lose {
+    color: red;
+    font-family: "Ceviche One";
+    font-size: 100px;
+    width: 200%;
+    z-index: 10;
+    position: absolute;
+    left: -50%;
+    top: 40%;
+    -webkit-text-stroke: 5px yellow;
+}
+
+.win {
+    color: green;
+    font-family: "Ceviche One";
+    font-size: 100px;
+    width: 200%;
+    z-index: 10;
+    position: absolute;
+    left: -50%;
+    top: 40%;
+    -webkit-text-stroke: 3px greenyellow;
 }

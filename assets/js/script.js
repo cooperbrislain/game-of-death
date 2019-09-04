@@ -1,6 +1,23 @@
 const Game = {
     start: function() {
+        Fighters = [];
+        Player = undefined;
+        Opponent = undefined;
         console.log('game starting...');
+        console.log('Loading Fighter Data');
+        $.ajax('assets/data/fighters.json')
+        .done(function(data) {
+            console.log('Fighter Data Loaded');
+            data.forEach(function(fighterData) {
+                var NewFighter = Object.assign({}, Fighter);
+                Object.assign(NewFighter, fighterData);
+                NewFighter.ap_adjusted = NewFighter.ap;
+                Fighters.push(NewFighter);
+            });
+        })
+        .fail(function(jqXHR, textStatus) {
+            console.log(`Failure: ${textStatus}`);
+        });
         drawSplashScreen();
     },
     playerSelect: function(which) {
@@ -24,10 +41,16 @@ const Game = {
         $('.opponent-side').html(Opponent.getCard());
     },
     win: function() {
-
+        $('.btn-attack').remove();
+        $('<div class="win">')
+            .text('YOU WIN')
+            .appendTo('.vs');
     },
     lose: function() {
-
+        $('.btn-attack').remove();
+        $('<div class="lose">')
+            .text('YOU LOSE')
+            .appendTo('.vs');
     }
 };
 
@@ -100,6 +123,7 @@ var Player;
 var Opponent;
 
 function drawSplashScreen() {
+    $('body').empty();
     var $splash = $('<div>').addClass('jumbotron splash');
     $('<h1>').text('GAME OF DEATH').appendTo($splash);
     $('<img>').attr('src',`assets/img/game-of-death.png`).appendTo($splash);
@@ -135,21 +159,7 @@ function drawFightArea() {
 }
 
 $(document).ready(function() {
-    console.log('Loading Fighter Data');
-    $.ajax('assets/data/fighters.json')
-    .done(function(data) {
-        console.log('Fighter Data Loaded');
-        data.forEach(function(fighterData) {
-            var NewFighter = Object.assign({}, Fighter);
-            Object.assign(NewFighter, fighterData);
-            NewFighter.ap_adjusted = NewFighter.ap;
-            Fighters.push(NewFighter);
-        });
-        Game.start();
-    })
-    .fail(function(jqXHR, textStatus) {
-        console.log(`Failure: ${textStatus}`);
-    });
+    Game.start();
     
     $(document).on('click', '.splash', function() {
         $(this).remove();
@@ -174,5 +184,13 @@ $(document).ready(function() {
         Player.attack(Opponent);
         Opponent.counterAttack(Player);
         Game.endRound();
+    });
+
+    $(document).on('click', '.win', function() {
+        Game.opponentSelect();
+    });
+
+    $(document).on('click', '.lose', function() {
+        Game.start();
     });
 });
