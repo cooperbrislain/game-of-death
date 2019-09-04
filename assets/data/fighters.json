@@ -3,55 +3,55 @@
         "name" : "Bruce Lee",
         "style" : "Jeet Kune Do",
         "portrait" : "bruce-lee.jpg",
-        "hp" : 20,
-        "ap" : 2,
-        "cap" : 3
+        "hp" : 30,
+        "ap" : 7,
+        "cap" : 7
     },
     {
         "name" : "Mr. Tien",
         "portrait" : "tien.jpg",
-        "hp" : 30,
-        "ap" : 3,
-        "cap" : 1
+        "hp" : 40,
+        "ap" : 5,
+        "cap" : 3
     },
     {
         "name" : "Hwang",
         "style" : "Tae-Kwon-Do",
         "portrait" : "hwang.jpg",
-        "hp" : 20,
-        "ap" : 5,
-        "cap" : 10
+        "hp" : 40,
+        "ap" : 9,
+        "cap" : 3
     },
     {
         "name" : "Dan",
         "style" : "Eskrima",
         "portrait" : "dan.jpg",
         "hp" : 30,
-        "ap" : 1,
+        "ap" : 4,
         "cap" : 8
     },
     {
         "name" : "Ji",
         "style" : "Hapkido",
         "portrait" : "ji.jpg",
-        "hp" : 20,
-        "ap" : 3,
-        "cap" : 3
+        "hp" : 40,
+        "ap" : 8,
+        "cap" : 4
     },
     {
         "name" : "Mantis",
         "style" : "???",
         "portrait" : "mantis.jpg",
-        "hp" : 10,
-        "ap" : 3,
-        "cap" : 3
+        "hp" : 25,
+        "ap" : 10,
+        "cap" : 10
     },
     {
         "name" : "Bolo",
         "style" : "Karate",
         "portrait" : "bolo.jpg",
-        "hp" : 20,
+        "hp" : 50,
         "ap" : 8,
-        "cap" : 2
+        "cap" : 3
     }
 ]
