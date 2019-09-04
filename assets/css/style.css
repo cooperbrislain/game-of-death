@@ -1,12 +1,11 @@
 div {
-    border: 1px dotted red;
-}
-.main-area {
-    height: 75%;
+    /* border: 1px dotted red; */
 }
 
-.player-area {
+.jumbotron.splash {
+    text-align: center;
 }
 
-.opponent-area {
+h1 {
+    display: none;
 }

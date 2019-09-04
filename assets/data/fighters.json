@@ -1,30 +1,64 @@
 [
     {
-        "name" : "Muppet Punk",
-        "portrait" : "",
+        "name" : "Bruce Lee",
+        "art" : "Jeet Kune Do",
+        "portrait" : "bruce-lee.jpg",
         "hp" : 20,
         "ap" : 2,
         "cap" : 3
     },
     {
-        "name" : "Scroungely",
+        "name" : "Mr. Tien",
         "portrait" : "",
         "hp" : 30,
         "ap" : 3,
         "cap" : 1
     },
     {
-        "name" : "Bruce Lee",
+        "name" : "Yuan",
         "portrait" : "",
         "hp" : 20,
         "ap" : 5,
         "cap" : 10
     },
     {
-        "name" : "Shaman",
-        "portrait" : "",
+        "name" : "Dan",
+        "art" : "Eskrima",
+        "portrait" : "dan.jpg",
         "hp" : 30,
         "ap" : 1,
         "cap" : 8
+    },
+    {
+        "name" : "Kuan",
+        "art" : "Locksmithing",
+        "portrait" : "",
+        "hp" : 5,
+        "ap" : 3,
+        "cap" : 3
+    },
+    {
+        "name" : "Ji",
+        "art" : "Hapkido",
+        "portrait" : "ji.jpg",
+        "hp" : 20,
+        "ap" : 3,
+        "cap" : 3
+    },
+    {
+        "name" : "Mantis",
+        "art" : "???",
+        "portrait" : "mantis.jpg",
+        "hp" : 10,
+        "ap" : 3,
+        "cap" : 3
+    },
+    {
+        "name" : "Bolo",
+        "art" : "Karate",
+        "portrait" : "bolo.jpg",
+        "hp" : 20,
+        "ap" : 8,
+        "cap" : 2
     }
 ]
