@@ -10,8 +10,16 @@ h1 {
     display: none;
 }
 
-.fighter-card.player-card {
+.fighter-select .fighter-card.player-card {
     border: 3px solid green;
+}
+
+.fighter-card .card-body {
+    position: relative;
+}
+
+.fighter-card.dead {
+    background-color: rgba(255,0,0,0.5);
 }
 
 .fighter-card.dead .cover.x {
@@ -21,31 +29,48 @@ h1 {
     z-index: 2;
     width: 100%;
     height: 100%;
-    background-color: rgba(255,0,0,0.5);
     background-image: url(../img/red-x.png);
+    background-color: rgba(255,0,0,0.5);
     background-size: contain;
     background-repeat: no-repeat;
 }
 
-.fighter-card:not(.dead):not(.player-card):hover {
+.fighter-card.dead .card-header, .fighter-card.dead .card-footer {
+    background-color: rgba(255,0,0,0.5);
+}
+
+.fighter-select .fighter-card:not(.dead):not(.player-card):hover {
     box-shadow: 8px 8px orange;
     border: 1px solid orange;
 }
 
 .fighter-card .stats {
-    padding: 5px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    height: 100px;
+    height: 75px;
     flex-wrap: wrap;
 }
 
 .fighter-card .stats dt {
     align-self: flex-start;
+    font-size: 10px;
     width: 33%;
 }
 
 .fighter-card .stats dd {
+    font-size: 28px;
+    align-self: flex-end;
     width: 33%;
+}
+
+.jumbotron.fight {
+    height: 100%;
+}
+
+.vs {
+    background-image: url(../img/vs.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
 }

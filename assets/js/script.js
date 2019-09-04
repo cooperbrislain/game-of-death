@@ -4,11 +4,14 @@ const Game = {
         drawSplashScreen();
     },
     playerSelect: function(which) {
+        drawFighterSelect();
     },
     opponentSelect: function(which) {
-
+        drawFighterSelect();
     },
-    fight: function() {},
+    fight: function() {
+        drawFightArea();
+    },
     endRound: function() {
         if (Player.hp <= 0) {
             this.lose();
@@ -35,6 +38,49 @@ const Fighter = {
     },
     takeDamage: function(amount) {
         this.hp -= amount;
+    },
+    getCard: function() {
+        $card = $('<div>')
+            .addClass('card fighter-card');
+        $('<div>')
+            .addClass('card-header')
+            .text(this.name)
+            .appendTo($card);
+        $('<div>')
+            .addClass('card-body')
+            .appendTo($card);
+        $('<img>')
+            .addClass('card-img')
+            .attr('src',`assets/img/${(this.portrait? this.portrait : 'blank.jpg' )}`)
+            .appendTo($card.find('.card-body'));
+        $('<div>')
+            .addClass('card-footer')
+            .appendTo($card);
+
+        $stats = $('<dl>')
+            .addClass('stats');
+        $('<dt>').text('Attack').appendTo($stats);
+        $('<dd>').text(this.ap).appendTo($stats);
+        $('<dt>').text('Counter').appendTo($stats);
+        $('<dd>').text(this.cap).appendTo($stats);
+        $('<dt>').text('HP').appendTo($stats);
+        $('<dd>').text(this.hp).appendTo($stats);
+        $stats.appendTo($card.find('.card-footer'));
+
+        if (this.status == 'dead') {
+            $card.addClass('dead');
+            $('<div>')
+                .addClass('cover x')
+                .appendTo($card.find('.card-body'));
+        }
+
+        if (this === Player)
+            $card.addClass('player-card');
+        
+        if (this === Opponent) 
+            $card.addClass('opponent-card');
+        
+        return $card;
     }
 };
 
@@ -55,39 +101,26 @@ function drawFighterSelect() {
     var $screen = $('<div>').addClass('jumbotron fighter-select text-center');
     $('<h2>').text(`Choose Your ${Player === undefined? 'Fighter':'Opponent'}`).appendTo($screen);
     var $deck = $('<div>').addClass('card-deck').appendTo($screen);
-    for (var i=0; i<Fighters.length;i++) {
-        var $fighterCard = $('<div>')
-            .addClass('card fighter-card')
-            .data('fighter-index',i);
-        if (Fighters[i] == Player) {
-            $fighterCard.addClass('player-card');
-        }
-        if (Fighters[i].status == 'dead') {
-            $fighterCard.addClass('dead');
-            $('<div>')
-                .addClass('cover x')
-                .appendTo($fighterCard);
-        }
-        $('<img>')
-            .addClass('card-img')
-            .attr('src',`assets/img/${(Fighters[i].portrait? Fighters[i].portrait : 'blank.jpg' )}`)
-            .appendTo($fighterCard);
-        $('<h3>')
-            .addClass('text-center')
-            .text(Fighters[i].name)
-            .appendTo($fighterCard);
-        $stats = $('<dl>')
-            .addClass('stats');
-        $('<dt>').text('Attack').appendTo($stats);
-        $('<dd>').text(Fighters[i].ap).appendTo($stats);
-        $('<dt>').text('Counter').appendTo($stats);
-        $('<dd>').text(Fighters[i].cap).appendTo($stats);
-        $('<dt>').text('HP').appendTo($stats);
-        $('<dd>').text(Fighters[i].hp).appendTo($stats);
-        $stats.appendTo($fighterCard);
+    $.each(Fighters, function(index, theFighter) {
+        var $fighterCard = theFighter.getCard();
+        $fighterCard.data('fighter-index',index);
         $fighterCard.appendTo($deck);
-    }
+    });
     $screen.appendTo($('body'));
+}
+
+function drawFightArea() {
+    $('body').empty();
+    var $screen = $('<div>').addClass('jumbotron fight');
+    var $player_side = $('<div>').addClass('player-side col-sm-5');
+    $player_side.append(Player.getCard());
+    var $opponent_side = $('<div>').addClass('opponent-side col-sm-5');
+    $opponent_side.append(Opponent.getCard());
+    $screen.append($('<div>').addClass('row'));
+    $screen.find('.row').append($player_side);
+    $screen.find('.row').append($('<div>').addClass('vs col-sm-2'));
+    $screen.find('.row').append($opponent_side);
+    $screen.appendTo('body');
 }
 
 $(document).ready(function() {
@@ -95,7 +128,11 @@ $(document).ready(function() {
     $.ajax('assets/data/fighters.json')
     .done(function(data) {
         console.log('Fighter Data Loaded');
-        Fighters = data;
+        data.forEach(function(fighterData) {
+            var NewFighter = Object.assign({}, Fighter);
+            Object.assign(NewFighter, fighterData);
+            Fighters.push(NewFighter);
+        });
         Game.start();
     })
     .fail(function(jqXHR, textStatus) {
@@ -108,7 +145,7 @@ $(document).ready(function() {
     });
 
     $(document).on('click', '.fighter-select .fighter-card:not(.player-card):not(.dead)', function() {
-        theIndex = $('.fighter-card').data('fighter-index');
+        theIndex = $(this).data('fighter-index');
         if (Player === undefined) {
             Player = Fighters[theIndex];
             console.log(`Player selected: ${theIndex}`);
@@ -116,6 +153,7 @@ $(document).ready(function() {
         } else {
             Opponent = Fighters[theIndex];
             console.log(`Opponent selected: ${theIndex}`);
+            Game.fight();
         }
     });
 });
