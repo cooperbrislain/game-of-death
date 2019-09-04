@@ -52,7 +52,8 @@ function drawSplashScreen() {
 
 function drawFighterSelect() {
     $('body').empty();
-    var $screen = $('<div>').addClass('jumbotron fighter-select')
+    var $screen = $('<div>').addClass('jumbotron fighter-select text-center');
+    $('<h2>').text(`Choose Your ${Player === undefined? 'Fighter':'Opponent'}`).appendTo($screen);
     var $deck = $('<div>').addClass('card-deck').appendTo($screen);
     for (var i=0; i<Fighters.length;i++) {
         var $fighterCard = $('<div>')
@@ -60,6 +61,12 @@ function drawFighterSelect() {
             .data('fighter-index',i);
         if (Fighters[i] == Player) {
             $fighterCard.addClass('player-card');
+        }
+        if (Fighters[i].status == 'dead') {
+            $fighterCard.addClass('dead');
+            $('<div>')
+                .addClass('cover x')
+                .appendTo($fighterCard);
         }
         $('<img>')
             .addClass('card-img')
@@ -69,6 +76,15 @@ function drawFighterSelect() {
             .addClass('text-center')
             .text(Fighters[i].name)
             .appendTo($fighterCard);
+        $stats = $('<dl>')
+            .addClass('stats');
+        $('<dt>').text('Attack').appendTo($stats);
+        $('<dd>').text(Fighters[i].ap).appendTo($stats);
+        $('<dt>').text('Counter').appendTo($stats);
+        $('<dd>').text(Fighters[i].cap).appendTo($stats);
+        $('<dt>').text('HP').appendTo($stats);
+        $('<dd>').text(Fighters[i].hp).appendTo($stats);
+        $stats.appendTo($fighterCard);
         $fighterCard.appendTo($deck);
     }
     $screen.appendTo($('body'));
