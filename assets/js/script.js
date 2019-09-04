@@ -31,9 +31,11 @@ const Game = {
     },
     endRound: function() {
         if (Player.hp <= 0) {
+            Opponent.hp = 0;
             Player.status = "dead";
             this.lose();
         } else if (Opponent.hp <= 0) {
+            Opponent.hp = 0;
             Opponent.status = "dead";
             this.win();
         }
@@ -92,11 +94,11 @@ const Fighter = {
 
         $stats = $('<dl>')
             .addClass('stats');
-        $('<dt>').text('Attack').appendTo($stats);
+        $('<dt>').append('<i class="fa fas fa-fist-raised">').appendTo($stats);
         $('<dd>').text(this.ap).appendTo($stats);
-        $('<dt>').text('Counter').appendTo($stats);
+        $('<dt>').append('<i class="fa fas fa-yin-yang">').appendTo($stats);
         $('<dd>').text(this.cap).appendTo($stats);
-        $('<dt>').text('HP').appendTo($stats);
+        $('<dt>').append('<i class="fa fas fa-heart">').appendTo($stats);
         $('<dd>').text(this.hp).appendTo($stats);
         $stats.appendTo($card.find('.card-footer'));
 
