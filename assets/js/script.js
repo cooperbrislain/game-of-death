@@ -14,27 +14,37 @@ const Game = {
     },
     endRound: function() {
         if (Player.hp <= 0) {
+            Player.status = "dead";
             this.lose();
         } else if (Opponent.hp <= 0) {
+            Opponent.status = "dead";
             this.win();
         }
+        $('.player-side').html(Player.getCard());
+        $('.opponent-side').html(Opponent.getCard());
     },
-    win: function() {},
-    lose: function() {}
+    win: function() {
+
+    },
+    lose: function() {
+
+    }
 };
 
 const Fighter = {
     name: null,
     portrait: null,
     hp: null,
+    ap_adjusted: null,
     stance: null,
     style: null,
     status: "alive",
-    attack: function() {
-
+    attack: function(target) {
+        target.takeDamage(this.ap_adjusted);
+        this.ap_adjusted += this.ap;
     },
-    counterAttack: function() {
-
+    counterAttack: function(target) {
+        target.takeDamage(this.cap);
     },
     takeDamage: function(amount) {
         this.hp -= amount;
@@ -121,6 +131,7 @@ function drawFightArea() {
     $screen.find('.row').append($('<div>').addClass('vs col-sm-2'));
     $screen.find('.row').append($opponent_side);
     $screen.appendTo('body');
+    $('<button>').addClass('btn btn-large btn-attack').text('Attack').appendTo($('.vs'));
 }
 
 $(document).ready(function() {
@@ -131,6 +142,7 @@ $(document).ready(function() {
         data.forEach(function(fighterData) {
             var NewFighter = Object.assign({}, Fighter);
             Object.assign(NewFighter, fighterData);
+            NewFighter.ap_adjusted = NewFighter.ap;
             Fighters.push(NewFighter);
         });
         Game.start();
@@ -155,5 +167,12 @@ $(document).ready(function() {
             console.log(`Opponent selected: ${theIndex}`);
             Game.fight();
         }
+    });
+
+    $(document).on('click', '.btn-attack', function() {
+        console.log('attack clicked');
+        Player.attack(Opponent);
+        Opponent.counterAttack(Player);
+        Game.endRound();
     });
 });

@@ -73,4 +73,17 @@ h1 {
     background-position: center center;
     background-repeat: no-repeat;
     background-size: contain;
+    position: relative;
+    text-align: center;
+}
+
+.btn-attack {
+    position: absolute;
+    bottom: 50px;
+    left: 0px;
+    width: 100%;
+    background-color: red;
+    color: yellow;
+    font-weight: 900;
+    font-size: 25px;
 }
