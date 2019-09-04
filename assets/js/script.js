@@ -25,6 +25,8 @@ const Fighter = {
     portrait: null,
     hp: null,
     stance: null,
+    style: null,
+    status: "alive",
     attack: function() {
 
     },
@@ -37,6 +39,7 @@ const Fighter = {
 };
 
 var Fighters = [];
+
 var Player;
 var Opponent;
 
@@ -48,16 +51,24 @@ function drawSplashScreen() {
 }
 
 function drawFighterSelect() {
+    $('body').empty();
     var $screen = $('<div>').addClass('jumbotron fighter-select')
     var $deck = $('<div>').addClass('card-deck').appendTo($screen);
     for (var i=0; i<Fighters.length;i++) {
-        var $fighterCard = $('<div>').addClass('card fighter-card');
+        var $fighterCard = $('<div>')
+            .addClass('card fighter-card')
+            .data('fighter-index',i);
+        if (Fighters[i] == Player) {
+            $fighterCard.addClass('player-card');
+        }
         $('<img>')
             .addClass('card-img')
-            .attr('src',`assets/img/${(Fighters[i].portrait? Fighters[i].portrait : 'blank.jpg' )}`).appendTo($fighterCard);
+            .attr('src',`assets/img/${(Fighters[i].portrait? Fighters[i].portrait : 'blank.jpg' )}`)
+            .appendTo($fighterCard);
         $('<h3>')
             .addClass('text-center')
-            .text(Fighters[i].name).appendTo($fighterCard);
+            .text(Fighters[i].name)
+            .appendTo($fighterCard);
         $fighterCard.appendTo($deck);
     }
     $screen.appendTo($('body'));
@@ -80,8 +91,15 @@ $(document).ready(function() {
         drawFighterSelect();
     });
 
-    $(document).on('click', '.fighter-select .fighter-card', function() {
-        theIndex = $('.fighter-card').index($(this));
-        console.log(`Fighter selected: ${theIndex}`);
+    $(document).on('click', '.fighter-select .fighter-card:not(.player-card):not(.dead)', function() {
+        theIndex = $('.fighter-card').data('fighter-index');
+        if (Player === undefined) {
+            Player = Fighters[theIndex];
+            console.log(`Player selected: ${theIndex}`);
+            drawFighterSelect();
+        } else {
+            Opponent = Fighters[theIndex];
+            console.log(`Opponent selected: ${theIndex}`);
+        }
     });
 });

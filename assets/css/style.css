@@ -9,3 +9,14 @@ div {
 h1 {
     display: none;
 }
+
+.player-card {
+    border: 3px solid green;
+}
+
+.fighter-card.dead .cover.x {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 2;
+}
